@@ -66,7 +66,7 @@ router.post("/deleteSubSection",auth,isInstructor,deleteSubSection)
 //get all registered courses
 router.get("/getAllCourses",getAllCourses);
 //getDetails for a specefic Courses
-router.post("/getCoursesDetails",getCourseDetails);
+router.post("/getCourseDetails",getCourseDetails);
 
 
 
@@ -76,8 +76,8 @@ router.post("/getCoursesDetails",getCourseDetails);
 //category can only be created by admin
 // todo : put isAdmin middleware here
 
-router.post("/createCatefory",auth,isAdmin,createCategory)
-router.post("/showAllCategories",showAllCategories);
+router.post("/createCategory",auth,isAdmin,createCategory)
+router.get("/showAllCategories",showAllCategories);
 router.post("/getCategoryPageDetails",categoryPageDetails)
 
 

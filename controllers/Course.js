@@ -29,7 +29,7 @@ exports.createCourse = async (req, res) => {
 			!courseDescription ||
 			!whatYouWillLearn ||
 			!price ||
-			!tag ||
+			// !tag ||
 			!thumbnail ||
 			!category
 		) {
@@ -151,50 +151,51 @@ exports.getAllCourses = async (req, res) => {
 
 //getCourseDetails
 exports.getCourseDetails = async (req, res) => {
-    try {
-            //get id
-            const {courseId} = req.body;
-            //find course details
-            const courseDetails = await Course.find(
-                                        {_id:courseId})
-                                        .populate(
-                                            {
-                                                path:"instructor",
-                                                populate:{
-                                                    path:"additionalDetails",
-                                                },
-                                            }
-                                        )
-                                        .populate("category")
-                                        //.populate("ratingAndreviews")
-                                        .populate({
-                                            path:"courseContent",
-                                            populate:{
-                                                path:"subSection",
-                                            },
-                                        })
-                                        .exec();
+	try {
+		//get id
+		const { CourseId } = req.body;
+		//find course details
+		const courseDetails = await Course.find(
+			{ _id: CourseId })
+			.populate(
+				{
+					path: "instructor",
+					populate: {
+						path: "additionalDetails",
+					},
+				}
+			)
+			.populate("category")
+			//.populate("ratingAndreviews")
+			.populate({
+				path: "courseContent",
+				populate: {
+					path: "subSection",
+				},
+			})
+			.exec();
 
-                //validation
-                if(!courseDetails) {
-                    return res.status(400).json({
-                        success:false,
-                        message:`Could not find the course with ${courseId}`,
-                    });
-                }
-                //return response
-                return res.status(200).json({
-                    success:true,
-                    message:"Course Details fetched successfully",
-                    data:courseDetails,
-                })
+		//validation
+		if (!courseDetails) {
+			return res.status(400).json({
+				success: false,
+				message: `Could not find the course with ${CourseId}`,
+			});
+		}
+		console.log(courseDetails)
+		//return response
+		return res.status(200).json({
+			success: true,
+			message: "Course Details fetched successfully",
+			courseDetails,
+		})
 
-    }
-    catch(error) {
-        console.log(error);
-        return res.status(500).json({
-            success:false,
-            message:error.message,
-        });
-    }
+	}
+	catch (error) {
+		console.log(error);
+		return res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
 }

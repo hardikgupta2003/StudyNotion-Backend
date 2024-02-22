@@ -1,7 +1,8 @@
 // Import necessary modules
 const Section = require("../models/Section");
-const SubSection = require("../models/Subsection");
+const SubSection = require("../models/SubSection");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+require("dotenv").config();
 
 // Create a new sub-section for a given section
 exports.createSubSection = async (req, res) => {
@@ -41,7 +42,9 @@ exports.createSubSection = async (req, res) => {
   
       // Return the updated section in the response
       return res.status(200).json({ success: true, data: updatedSection })
-    } catch (error) {
+    } 
+    
+    catch (error) {
       // Handle any errors that may occur during the process
       console.error("Error creating new sub-section:", error)
       return res.status(500).json({

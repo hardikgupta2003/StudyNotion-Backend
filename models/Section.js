@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const sectionSchema = new mongoose.Schema({
+const SectionSchema = new mongoose.Schema({
     sectionName:{
         type:String,
     },
@@ -8,11 +8,11 @@ const sectionSchema = new mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             required:true,
-            ref:"Subsection",
+            ref:"SubSection",
         }
     ]
 
 })
 
 
-module.exports = mongoose.model("section",sectionSchema);
+module.exports = mongoose.model("Section",SectionSchema);

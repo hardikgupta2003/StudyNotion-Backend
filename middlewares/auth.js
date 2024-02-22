@@ -54,7 +54,7 @@ exports.isStudent= async(req,res,next )=>{
 // isInstructor middleware
 exports.isInstructor= async(req,res,next )=>{
     try{
-        if(req.user,accountType !== 'Instructor'){
+        if(req.user.accountType !== 'Instructor'){
             return res.status(401).json({
                 success:false,
                 message:"this is a protected route for Instructor only",
@@ -71,7 +71,7 @@ exports.isInstructor= async(req,res,next )=>{
 // isAdmin middleware
 exports.isAdmin= async(req,res,next )=>{
     try{
-        if(req.user,accountType !== 'Admin'){
+        if(req.user.accountType !== 'Admin'){
             return res.status(401).json({
                 success:false,
                 message:"this is a protected route for Admin only",

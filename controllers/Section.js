@@ -8,6 +8,7 @@ exports.createSection= async (req,res)=>{
     try{
         //fetch data from the request body
         const {sectionName,CourseId}=req.body;
+        console.log(sectionName,CourseId);
 
         //validtion
         if(!sectionName || !CourseId){
@@ -21,7 +22,7 @@ exports.createSection= async (req,res)=>{
         const newSection = await Section.create({sectionName});
 
         // add the new section to the course 
-        const updatedCourse = await Course.findByIdAndUpdate({CourseId},
+        const updatedCourse = await Course.findByIdAndUpdate(CourseId,
             {
                 $push:{
                     courseContent:newSection._id,
@@ -29,19 +30,20 @@ exports.createSection= async (req,res)=>{
             },
             {new:true})
             .populate({
-                path:"courseContent",
-                populate:{
-                    path:"subSection",
-                },
-            })
-            .exec();
+				path: "courseContent",
+				populate: {
+					path: "subSection",
+				},
+			})
+			.exec();
 
             //Return the updated course object in the response
 
+            console.log(updatedCourse)
             res.status(200).json({
                 success:true,
                 message:"section created successfully",
-                updatedCourse,
+                data:updatedCourse,
             });
 
 
